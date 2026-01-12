@@ -1,10 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
 export default function Hero() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   const scrollTo = (id) => {
     const element = document.getElementById(id);
@@ -42,21 +43,21 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          <m.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-sm text-slate-300">Strategic Grant & Technology Consulting</span>
-          </motion.div>
+          </m.div>
 
           {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+          <m.h1
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8"
           >
             <span className="text-slate-50">{t('hero.headline').split('.')[0]}.</span>
@@ -64,23 +65,23 @@ export default function Hero() {
             <span className="text-emerald-400">{t('hero.headline').split('.')[1]}.</span>
             <br />
             <span className="text-slate-50">{t('hero.headline').split('.')[2]}</span>
-          </motion.h1>
+          </m.h1>
 
           {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
+          <m.p
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.2 }}
             className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
             {t('hero.subheadline')}
-          </motion.p>
+          </m.p>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <m.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <button
@@ -100,21 +101,23 @@ export default function Hero() {
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <motion.button
-            onClick={() => scrollTo('services')}
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="p-2 text-slate-500 hover:text-emerald-400 transition-colors"
+        {!shouldReduceMotion && (
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2"
           >
-            <ChevronDown className="w-6 h-6" />
-          </motion.button>
-        </motion.div>
+            <m.button
+              onClick={() => scrollTo('services')}
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="p-2 text-slate-500 hover:text-emerald-400 transition-colors"
+            >
+              <ChevronDown className="w-6 h-6" />
+            </m.button>
+          </m.div>
+        )}
       </div>
     </section>
   );

@@ -1,10 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { memo } from 'react';
+import { m, useReducedMotion } from 'framer-motion';
 import { Search, Cpu, Layers } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
-export default function Services() {
+const Services = memo(function Services() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   const services = [
     {
@@ -42,28 +43,28 @@ export default function Services() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className="text-center mb-20"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-50 mb-6">
             {t('services.title')}
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full" />
-        </motion.div>
+        </m.div>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div
+            <m.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : index * 0.15 }}
               className="group relative"
             >
               {/* Card */}
@@ -97,10 +98,12 @@ export default function Services() {
                 {/* Hover Glow */}
                 <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+});
+
+export default Services;

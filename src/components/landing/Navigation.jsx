@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, memo } from 'react';
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
-export default function Navigation() {
+const Navigation = memo(function Navigation() {
   const { language, setLanguage, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,10 +42,10 @@ export default function Navigation() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
+      <m.nav
+        initial={shouldReduceMotion ? { y: 0 } : { y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled 
             ? 'bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/50' 
@@ -54,11 +55,11 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.a 
+            <m.a 
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="flex items-center gap-3 group"
-              whileHover={{ scale: 1.02 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
                 <span className="text-slate-900 font-bold text-lg">G</span>
@@ -66,7 +67,7 @@ export default function Navigation() {
               <span className="text-xl font-semibold text-slate-50 tracking-tight">
                 Grant<span className="text-emerald-400">Linker</span>
               </span>
-            </motion.a>
+            </m.a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
@@ -116,16 +117,16 @@ export default function Navigation() {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </m.nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
+          <m.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             className="fixed inset-0 z-40 md:hidden"
           >
             <div 
@@ -135,24 +136,24 @@ export default function Navigation() {
             <div className="relative pt-24 px-6">
               <div className="flex flex-col gap-2">
                 {navItems.map((item, index) => (
-                  <motion.button
+                  <m.button
                     key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : index * 0.1 }}
                     onClick={() => scrollTo(item.id)}
                     className="text-left px-4 py-4 text-lg text-slate-200 hover:text-emerald-400 border-b border-slate-800/50 transition-colors"
                   >
                     {item.label}
-                  </motion.button>
+                  </m.button>
                 ))}
               </div>
               
               {/* Mobile Language Toggle */}
-              <motion.div 
-                initial={{ opacity: 0 }}
+              <m.div 
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: shouldReduceMotion ? 0 : 0.4 }}
                 className="mt-8 flex items-center justify-center gap-4"
               >
                 <Globe className="w-5 h-5 text-slate-400" />
@@ -176,11 +177,13 @@ export default function Navigation() {
                 >
                   Español
                 </button>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>
   );
-}
+});
+
+export default Navigation;

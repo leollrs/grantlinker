@@ -1,10 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { memo } from 'react';
+import { m, useReducedMotion } from 'framer-motion';
 import { Building2, Landmark, Briefcase, GraduationCap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
-export default function Clients() {
+const Clients = memo(function Clients() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   const clientTypes = t('clients.types');
   const icons = [Building2, Landmark, Briefcase, GraduationCap];
@@ -18,11 +19,11 @@ export default function Clients() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className="text-center mb-20"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-50 mb-6">
@@ -31,19 +32,19 @@ export default function Clients() {
           <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             {t('clients.subtitle')}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Client Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {clientTypes.map((client, index) => {
             const Icon = icons[index];
             return (
-              <motion.div
+              <m.div
                 key={client.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : index * 0.1 }}
                 className="group"
               >
                 <div className="relative h-full p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all duration-500 text-center">
@@ -62,11 +63,13 @@ export default function Clients() {
                     {client.desc}
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
       </div>
     </section>
   );
-}
+});
+
+export default Clients;

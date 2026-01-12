@@ -1,18 +1,19 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { memo } from 'react';
+import { m, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '../LanguageContext';
 
-export default function Footer() {
+const Footer = memo(function Footer() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <footer className="relative py-16 bg-slate-950 border-t border-slate-800/50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className="flex flex-col items-center text-center"
         >
           {/* Logo */}
@@ -37,8 +38,10 @@ export default function Footer() {
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} GrantLinker. {t('footer.rights')}
           </p>
-        </motion.div>
+        </m.div>
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;
