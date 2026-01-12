@@ -34,7 +34,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="relative py-32 bg-slate-900">
+    <section className="relative py-20 md:py-28 bg-slate-900">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />

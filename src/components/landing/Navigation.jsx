@@ -17,17 +17,25 @@ export default function Navigation() {
   }, []);
 
   const scrollTo = (id) => {
+    setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const navHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
-    setIsMobileMenuOpen(false);
   };
 
   const navItems = [
-    { id: 'services', label: t('nav.services') },
+    { id: 'home', label: 'Home' },
     { id: 'clients', label: t('nav.clients') },
     { id: 'why', label: t('nav.why') },
+    { id: 'services', label: t('nav.services') },
     { id: 'contact', label: t('nav.contact') }
   ];
 

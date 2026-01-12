@@ -61,7 +61,7 @@ export default function ContactForm() {
   const formT = t('contact.form');
 
   return (
-    <section id="contact" className="relative py-32 bg-slate-950">
+    <section className="relative py-20 md:py-28 bg-slate-950">
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[150px]" />

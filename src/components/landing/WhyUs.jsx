@@ -9,7 +9,7 @@ export default function WhyUs() {
   const points = t('why.points');
 
   return (
-    <section id="why" className="relative py-32 bg-slate-900">
+    <section className="relative py-20 md:py-28 bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
