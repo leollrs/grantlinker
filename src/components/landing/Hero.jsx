@@ -97,7 +97,7 @@ export default function Hero() {
             >
               {t('hero.secondary')}
             </button>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Scroll Indicator */}
