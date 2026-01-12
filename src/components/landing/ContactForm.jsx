@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,6 +29,7 @@ const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "");
 
 export default function ContactForm() {
   const { t, language } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   // Keep your existing translation structure, but add safe fallbacks
   const ui = useMemo(() => {
@@ -195,65 +196,65 @@ export default function ContactForm() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          <m.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">
               {ui.title}
             </h2>
             <p className="text-lg text-slate-400">{ui.subtitle}</p>
-          </motion.div>
+          </m.div>
 
           {/* Form Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <m.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
             className="w-full max-w-lg mx-auto"
           >
             <AnimatePresence mode="wait">
               {status === "success" ? (
-                <motion.div
+                <m.div
                   key="success"
-                  initial={{ opacity: 0, scale: 0.96 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   className="text-center py-12 px-6 rounded-2xl border border-emerald-500/20 bg-slate-900/40"
                 >
-                  <motion.div
-                    initial={{ scale: 0 }}
+                  <m.div
+                    initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ delay: 0.15, type: "spring", stiffness: 220 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.15, type: "spring", stiffness: 220 }}
                     className="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-500/20 flex items-center justify-center"
                   >
                     <CheckCircle2 className="w-10 h-10 text-emerald-400" />
-                  </motion.div>
+                  </m.div>
                   <h3 className="text-2xl font-semibold text-white mb-3">
                     {ui.successTitle}
                   </h3>
                   <p className="text-zinc-400">{ui.successMessage}</p>
-                </motion.div>
+                </m.div>
               ) : status === "error" ? (
-                <motion.div
+                <m.div
                   key="error"
-                  initial={{ opacity: 0, scale: 0.96 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   className="text-center py-12 px-6 rounded-2xl border border-red-500/20 bg-slate-900/40"
                 >
-                  <motion.div
-                    initial={{ scale: 0 }}
+                  <m.div
+                    initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ delay: 0.15, type: "spring", stiffness: 220 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.15, type: "spring", stiffness: 220 }}
                     className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center"
                   >
                     <AlertCircle className="w-10 h-10 text-red-400" />
-                  </motion.div>
+                  </m.div>
                   <h3 className="text-2xl font-semibold text-white mb-3">
                     {ui.errorTitle}
                   </h3>
@@ -264,11 +265,11 @@ export default function ContactForm() {
                   >
                     {ui.tryAgain}
                   </Button>
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.form
+                <m.form
                   key="form"
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
                   onSubmit={handleSubmit}
@@ -429,10 +430,10 @@ export default function ContactForm() {
                   <p className="text-center text-sm text-slate-500">
                     {ui.formT.privacy}
                   </p>
-                </motion.form>
+                </m.form>
               )}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
