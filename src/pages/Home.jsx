@@ -3,9 +3,9 @@ import Navigation from '../components/landing/Navigation';
 import Hero from '../components/landing/Hero';
 
 // Lazy load non-critical sections
-const Clients = lazy(() => import('../components/landing/Clients'));
-const WhyUs = lazy(() => import('../components/landing/WhyUs'));
+const AboutUs = lazy(() => import('../components/landing/AboutUs'));
 const Services = lazy(() => import('../components/landing/Services'));
+const Testimonials = lazy(() => import('../components/landing/Testimonials'));
 const ContactForm = lazy(() => import('../components/landing/ContactForm'));
 const Footer = lazy(() => import('../components/landing/Footer'));
 
@@ -18,36 +18,26 @@ const SectionFallback = () => (
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-black">
       <Navigation />
       
       <main>
-        <section id="home" className="scroll-mt-20">
-          <Hero />
-        </section>
+        <Hero />
         
         <Suspense fallback={<SectionFallback />}>
-          <section id="clients" className="scroll-mt-20">
-            <Clients />
-          </section>
+          <AboutUs />
         </Suspense>
         
         <Suspense fallback={<SectionFallback />}>
-          <section id="why" className="scroll-mt-20">
-            <WhyUs />
-          </section>
+          <Services />
         </Suspense>
         
         <Suspense fallback={<SectionFallback />}>
-          <section id="services" className="scroll-mt-20">
-            <Services />
-          </section>
+          <Testimonials />
         </Suspense>
         
         <Suspense fallback={<SectionFallback />}>
-          <section id="contact" className="scroll-mt-20">
-            <ContactForm />
-          </section>
+          <ContactForm />
         </Suspense>
       </main>
       
