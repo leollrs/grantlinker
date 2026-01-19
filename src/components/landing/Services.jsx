@@ -1,105 +1,137 @@
 import React, { memo } from 'react';
 import { m, useReducedMotion } from 'framer-motion';
-import { Search, Cpu, Layers } from 'lucide-react';
+import { FileSearch, Sparkles, Check } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
 const Services = memo(function Services() {
   const { t } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
 
-  const services = [
-    {
-      icon: Search,
-      title: t('services.grant.title'),
-      items: t('services.grant.items'),
-      gradient: 'from-emerald-500/20 to-teal-500/20',
-      iconBg: 'bg-emerald-500/10',
-      iconColor: 'text-emerald-400'
-    },
-    {
-      icon: Cpu,
-      title: t('services.tech.title'),
-      items: t('services.tech.items'),
-      gradient: 'from-teal-500/20 to-cyan-500/20',
-      iconBg: 'bg-teal-500/10',
-      iconColor: 'text-teal-400'
-    },
-    {
-      icon: Layers,
-      title: t('services.support.title'),
-      items: t('services.support.items'),
-      gradient: 'from-cyan-500/20 to-emerald-500/20',
-      iconBg: 'bg-cyan-500/10',
-      iconColor: 'text-cyan-400'
+  const services = t('services');
+  const { block1, block2 } = services;
+
+  const headerAnim = shouldReduceMotion ? {} : {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.3 },
+    transition: { duration: 0.5 }
+  };
+
+  const blockAnim = shouldReduceMotion ? {} : {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.6 }
+  };
+
+  const scrollTo = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const navHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navHeight;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
-  ];
+  };
 
   return (
-    <section className="relative py-20 md:py-28 bg-slate-900">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
+    <section id="services" className="relative py-24 md:py-32 bg-black">
+      {/* Background accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[140px] transform-gpu" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/4 rounded-full blur-[120px] transform-gpu" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <m.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-50 mb-6">
-            {t('services.title')}
+        {/* Header */}
+        <m.div {...headerAnim} className="text-center mb-20">
+          <p className="text-sm font-medium text-emerald-400 tracking-wider uppercase mb-4">
+            {services.subtitle}
+          </p>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-slate-50">
+            {services.title}
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full" />
         </m.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <m.div
-              key={service.title}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : index * 0.15 }}
-              className="group relative"
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* BLOCK 1 - Proposals & Grant Intelligence */}
+          <m.div
+            {...blockAnim}
+            className="group relative p-10 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 hover:border-emerald-500/40 transition-all duration-500"
+          >
+            {/* Icon */}
+            <div className="mb-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <FileSearch className="w-8 h-8 text-emerald-400" />
+            </div>
+
+            {/* Title */}
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-50 mb-4">
+              {block1.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-slate-300 leading-relaxed mb-8">
+              {block1.desc}
+            </p>
+
+            {/* Services List */}
+            <ul className="space-y-3 mb-10">
+              {block1.items.map((item, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-slate-400">
+                  <Check className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA */}
+            <button
+              onClick={() => scrollTo('contact')}
+              className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-md shadow-emerald-500/20"
             >
-              {/* Card */}
-              <div className="relative h-full p-8 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden">
-                {/* Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <div className={`w-14 h-14 rounded-xl ${service.iconBg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <service.icon className={`w-7 h-7 ${service.iconColor}`} />
-                  </div>
+              {block1.cta}
+            </button>
+          </m.div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold text-slate-50 mb-6">
-                    {service.title}
-                  </h3>
+          {/* BLOCK 2 - AI Solutions, Automation & Digital Development */}
+          <m.div
+            {...blockAnim}
+            style={{ transitionDelay: shouldReduceMotion ? '0ms' : '100ms' }}
+            className="group relative p-10 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 hover:border-amber-500/40 transition-all duration-500"
+          >
+            {/* Icon */}
+            <div className="mb-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Sparkles className="w-8 h-8 text-amber-400" />
+            </div>
 
-                  {/* Items */}
-                  <ul className="space-y-3">
-                    {service.items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-slate-400 group-hover:text-slate-300 transition-colors">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            {/* Title */}
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-50 mb-4">
+              {block2.title}
+            </h3>
 
-                {/* Hover Glow */}
-                <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            </m.div>
-          ))}
+            {/* Description */}
+            <p className="text-slate-300 leading-relaxed mb-8">
+              {block2.desc}
+            </p>
+
+            {/* Services List */}
+            <ul className="space-y-3 mb-10">
+              {block2.items.map((item, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-slate-400">
+                  <Check className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA */}
+            <button
+              onClick={() => scrollTo('contact')}
+              className="w-full py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-md shadow-amber-500/20"
+            >
+              {block2.cta}
+            </button>
+          </m.div>
         </div>
       </div>
     </section>

@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <LazyMotion features={domAnimation} strict>
       <LanguageProvider>
-        <div className="min-h-screen bg-slate-950 antialiased">
+        <div className="min-h-screen bg-black antialiased">
           {children}
         </div>
       </LanguageProvider>

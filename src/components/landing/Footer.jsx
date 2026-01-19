@@ -7,7 +7,7 @@ const Footer = memo(function Footer() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <footer className="relative py-16 bg-slate-950 border-t border-slate-800/50">
+    <footer className="relative py-16 bg-black border-t border-slate-800/50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <m.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
@@ -17,11 +17,8 @@ const Footer = memo(function Footer() {
           className="flex flex-col items-center text-center"
         >
           {/* Logo */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-lg">G</span>
-            </div>
-            <span className="text-xl font-semibold text-slate-50 tracking-tight">
+          <div className="mb-4">
+            <span className="text-2xl font-serif font-bold text-slate-50 tracking-tight">
               Grant<span className="text-emerald-400">Linker</span>
             </span>
           </div>
@@ -32,7 +29,7 @@ const Footer = memo(function Footer() {
           </p>
 
           {/* Divider */}
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-8" />
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent mb-8" />
 
           {/* Copyright */}
           <p className="text-sm text-slate-500">

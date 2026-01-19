@@ -34,9 +34,9 @@ const Navigation = memo(function Navigation() {
 
   const navItems = [
     { id: 'home', label: 'Home' },
-    { id: 'clients', label: t('nav.clients') },
-    { id: 'why', label: t('nav.why') },
+    { id: 'about', label: t('nav.about') },
     { id: 'services', label: t('nav.services') },
+    { id: 'testimonials', label: t('nav.testimonials') },
     { id: 'contact', label: t('nav.contact') }
   ];
 
@@ -48,7 +48,7 @@ const Navigation = memo(function Navigation() {
         transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled 
-            ? 'bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/50' 
+            ? 'bg-black/95 backdrop-blur-xl border-b border-slate-800/50' 
             : 'bg-transparent'
         }`}
       >
@@ -61,10 +61,7 @@ const Navigation = memo(function Navigation() {
               className="flex items-center gap-3 group"
               whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
-                <span className="text-slate-900 font-bold text-lg">G</span>
-              </div>
-              <span className="text-xl font-semibold text-slate-50 tracking-tight">
+              <span className="text-xl sm:text-2xl font-serif font-bold text-slate-50 tracking-tight">
                 Grant<span className="text-emerald-400">Linker</span>
               </span>
             </m.a>

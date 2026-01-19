@@ -187,10 +187,11 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="relative py-20 md:py-28 bg-slate-950">
+    <section id="contact" className="relative py-24 md:py-32 bg-gradient-to-b from-slate-950 to-black">
       {/* Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[150px]" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-500/6 rounded-full blur-[140px] transform-gpu" />
+        <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-amber-500/3 rounded-full blur-[100px] transform-gpu" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
@@ -200,13 +201,16 @@ export default function ContactForm() {
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-slate-50 mb-4">
+            <p className="text-sm font-medium text-emerald-400 tracking-wider uppercase mb-4">
+              Get Started Today
+            </p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-slate-50 mb-4">
               {ui.title}
             </h2>
-            <p className="text-lg text-slate-400">{ui.subtitle}</p>
+            <p className="text-lg text-slate-300">{ui.subtitle}</p>
           </m.div>
 
           {/* Form Card */}
@@ -412,7 +416,7 @@ export default function ContactForm() {
                   <Button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full h-14 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl text-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full h-14 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold rounded-lg text-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-emerald-500/25"
                   >
                     {status === "loading" ? (
                       <span className="flex items-center gap-2">
