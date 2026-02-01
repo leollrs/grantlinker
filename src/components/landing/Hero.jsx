@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 const WORDS = ['financiamiento', 'automatización', 'infraestructura', 'eficiencia', 'escala'];
@@ -33,7 +33,7 @@ export default function Hero() {
           Infraestructura Inteligente para Organizaciones que Necesitan{' '}
           <span className="relative inline-block">
             <AnimatePresence mode="wait">
-              <motion.span
+              <m.span
                 key={WORDS[index]}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function Hero() {
                 className="text-emerald-500"
               >
                 {WORDS[index]}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
           </span>
         </h1>
