@@ -1,0 +1,1 @@
+// Diagnosis component - paste your code here
