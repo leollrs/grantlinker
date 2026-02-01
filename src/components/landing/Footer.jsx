@@ -1,44 +1,58 @@
-import React, { memo } from 'react';
-import { m, useReducedMotion } from 'framer-motion';
-import { useLanguage } from '../LanguageContext';
+import React from 'react';
 
-const Footer = memo(function Footer() {
-  const { t } = useLanguage();
-  const shouldReduceMotion = useReducedMotion();
+export default function Footer() {
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 64;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
 
   return (
-    <footer className="relative py-16 bg-black border-t border-slate-800/50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <m.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-          className="flex flex-col items-center text-center"
-        >
-          {/* Logo */}
-          <div className="mb-4">
-            <span className="text-2xl font-serif font-bold text-slate-50 tracking-tight">
-              Grant<span className="text-emerald-400">Linker</span>
-            </span>
+    <footer className="border-t border-[#1F2630] bg-[#11161C]">
+      <div className="max-w-[1200px] mx-auto px-6 py-16">
+        <div className="grid sm:grid-cols-3 gap-10 mb-12">
+          <div>
+            <span className="text-[15px] font-semibold text-[#E8EEF5] tracking-tight">GrantLinker</span>
+            <p className="text-[13px] text-[#9AA6B2]/60 mt-3 leading-relaxed max-w-[240px]">
+              Infraestructura inteligente para organizaciones que necesitan asegurar financiamiento y escalar operaciones.
+            </p>
           </div>
 
-          {/* Tagline */}
-          <p className="text-slate-400 mb-8">
-            {t('footer.tagline')}
-          </p>
+          <div>
+            <p className="text-[12px] text-[#9AA6B2]/40 uppercase tracking-wider mb-4">Navegación</p>
+            <ul className="space-y-2.5">
+              {[
+                { id: 'sistemas', label: 'Sistemas' },
+                { id: 'planes', label: 'Planes' },
+                { id: 'diagnostico', label: 'Diagnóstico' },
+                { id: 'contacto', label: 'Contacto' },
+              ].map((link) => (
+                <li key={link.id}>
+                  <button
+                    onClick={() => scrollTo(link.id)}
+                    className="text-[13px] text-[#9AA6B2] hover:text-[#E8EEF5] transition-colors"
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Divider */}
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent mb-8" />
+          <div>
+            <p className="text-[12px] text-[#9AA6B2]/40 uppercase tracking-wider mb-4">Contacto</p>
+            <p className="text-[13px] text-[#9AA6B2]">hello@grantlinker.com</p>
+          </div>
+        </div>
 
-          {/* Copyright */}
-          <p className="text-sm text-slate-500">
-            © {new Date().getFullYear()} GrantLinker. {t('footer.rights')}
+        <div className="pt-8 border-t border-[#1F2630]">
+          <p className="text-[12px] text-[#9AA6B2]/30">
+            &copy; {new Date().getFullYear()} GrantLinker. Todos los derechos reservados.
           </p>
-        </m.div>
+        </div>
       </div>
     </footer>
   );
-});
-
-export default Footer;
+}
