@@ -3,7 +3,7 @@ import { RippleButton } from "@/components/ui/ripple-button";
 import { Badge } from "@/components/ui/badge";
 import { MoveRight, PhoneCall } from "lucide-react";
 
-function scrollTo(id: string) {
+function scrollTo(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const top = el.getBoundingClientRect().top + window.pageYOffset - 64;
@@ -69,7 +69,7 @@ const ADVANCED = [
   },
 ];
 
-function ServiceCard({ service }: { service: any }) {
+function ServiceCard({ service }) {
   return (
     <div
       className={`relative flex flex-col rounded-xl border p-7 bg-card/60 ${
@@ -89,7 +89,7 @@ function ServiceCard({ service }: { service: any }) {
       </p>
 
       <ul className="mt-6 space-y-2 text-sm text-muted-foreground flex-1">
-        {service.pricing.map((p: string) => (
+        {service.pricing.map((p) => (
           <li key={p}>• {p}</li>
         ))}
       </ul>
