@@ -4,34 +4,7 @@ import { Button } from "@/components/ui/button";
 const WEBHOOK_URL =
   "https://leollrs.app.n8n.cloud/webhook/ccf88576-571c-4927-aeb1-4d4ea16cee21";
 
-type OrgType = "nonprofit" | "municipality" | "clinic" | "business" | "other";
-type WebsiteState = "yes_good" | "yes_outdated" | "no";
-type AppointmentState = "manual" | "excel" | "basic_tool" | "system";
-type MissedCalls = "yes_many" | "yes_some" | "no";
-type Goal = "automation" | "digital" | "funding" | "all";
-
-type CoverageNeed = "after_hours" | "business_hours" | "24_7";
-type Volume = "low" | "medium" | "high";
-type Seats = "solo" | "small" | "team" | "multi";
-
-type Answers = {
-  orgType?: OrgType;
-  missedCalls?: MissedCalls;
-  appointments?: AppointmentState;
-  hasWebsite?: WebsiteState;
-  goal?: Goal;
-
-  // new, to match your pricing model
-  coverageNeed?: CoverageNeed;
-  volume?: Volume;
-  seats?: Seats;
-};
-
-const STEPS: Array<{
-  question: string;
-  key: keyof Answers;
-  options: Array<{ value: any; label: string }>;
-}> = [
+const STEPS = [
   {
     question: "Tipo de organización",
     key: "orgType",
@@ -101,30 +74,14 @@ const STEPS: Array<{
   },
 ];
 
-type RecTier =
-  | "Presencia Digital"
-  | "Atención IA"
-  | "Presencia + IA (Bundle)"
-  | "Automatización Empresarial"
-  | "Desarrollo Institucional";
-
-type Recommendation = {
-  plan: RecTier;
-  headline: string;
-  priceLine: string;
-  pricingModel: "setup" | "monthly" | "bundle" | "project";
-  reasons: string[];
-  nextStepCta: { label: string; scrollTo: "diagnostico" | "contacto" | "planes" };
-};
-
-function scrollTo(id: string) {
+function scrollTo(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const top = el.getBoundingClientRect().top + window.pageYOffset - 64;
   window.scrollTo({ top, behavior: "smooth" });
 }
 
-function estimateAiStartingPrice(answers: Answers) {
+function estimateAiStartingPrice(answers) {
   // You told me it varies by hours/volume/seats
   // This is NOT a final quote — just the correct "Desde" baseline.
   const coverage = answers.coverageNeed;
@@ -134,7 +91,7 @@ function estimateAiStartingPrice(answers: Answers) {
   return { from: 299, label: "Desde $299/mes (según horario/volumen)" };
 }
 
-function getRecommendation(answers: Answers): Recommendation {
+function getRecommendation(answers) {
   const orgType = answers.orgType;
   const hasWebsite = answers.hasWebsite;
   const missedCalls = answers.missedCalls;
@@ -142,7 +99,7 @@ function getRecommendation(answers: Answers): Recommendation {
   const seats = answers.seats;
   const volume = answers.volume;
 
-  const reasons: string[] = [];
+  const reasons = [];
 
   const websiteNeeded = hasWebsite === "no" || hasWebsite === "yes_outdated";
   const needsComms =
@@ -228,7 +185,7 @@ function getRecommendation(answers: Answers): Recommendation {
   };
 }
 
-function getLiveRecommendation(answers: Answers) {
+function getLiveRecommendation(answers) {
   if (Object.keys(answers).length === 0) return null;
 
   // If only orgType selected, show nothing yet (avoid misleading early recommendation)
@@ -239,7 +196,7 @@ function getLiveRecommendation(answers: Answers) {
 
 export default function Diagnosis() {
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<Answers>({});
+  const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const total = STEPS.length;
@@ -253,8 +210,8 @@ export default function Diagnosis() {
     return { question: s.question, answer: selected?.label || "" };
   });
 
-  const select = async (value: any) => {
-    const updated: Answers = { ...answers, [current.key]: value };
+  const select = async (value) => {
+    const updated = { ...answers, [current.key]: value };
     setAnswers(updated);
 
     const isLast = step >= total - 1;
