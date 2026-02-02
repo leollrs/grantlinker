@@ -17,22 +17,7 @@ import { useLanguage } from "../LanguageContext";
 const WEBHOOK_URL =
   "https://leollrs.app.n8n.cloud/webhook/ccf88576-571c-4927-aeb1-4d4ea16cee21";
 
-type Status = "idle" | "loading" | "success" | "error";
-
-type ServiceType = "" | "grant_consulting" | "tech_automation" | "both";
-
-type FormData = {
-  fullName: string;
-  organization: string;
-  email: string;
-  serviceType: ServiceType;
-  message: string;
-  honeypot: string;
-};
-
-type Errors = Partial<Record<keyof FormData, string>>;
-
-const sanitize = (value: unknown, max = 1000): string => {
+const sanitize = (value, max = 1000) => {
   if (value == null) return "";
   return String(value)
     .trim()
@@ -40,72 +25,69 @@ const sanitize = (value: unknown, max = 1000): string => {
     .replace(/<[^>]*>/g, "");
 };
 
-const isValidEmail = (email: string) =>
+const isValidEmail = (email) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "");
 
-function safeObj<T extends object>(maybe: unknown): Partial<T> {
-  return maybe && typeof maybe === "object" ? (maybe as Partial<T>) : {};
-}
+const safeObj = (maybe) => {
+  return maybe && typeof maybe === "object" ? maybe : {};
+};
 
 export default function ContactForm() {
   const { t, language } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
 
   const ui = useMemo(() => {
-    // t("contact.form") might be an object, string, or undefined depending on your i18n setup
     const rawForm = t?.("contact.form");
-    const formT = safeObj<{
-      name: string;
-      org: string;
-      email: string;
-      service: string;
-      message: string;
-      submit: string;
-      sending: string;
-      success: string;
-      error: string;
-      privacy: string;
-      serviceOptions: { grant: string; tech: string; both: string };
-    }>(rawForm);
+    const formT = safeObj(rawForm);
 
     const serviceOptions =
-      (formT.serviceOptions &&
-        typeof formT.serviceOptions === "object" &&
-        formT.serviceOptions) ||
-      {
-        grant: language === "es" ? "Consultoría de Subvenciones" : "Grant Consulting",
-        tech: language === "es" ? "Tecnología y Automatización" : "Technology & Automation",
-        both: language === "es" ? "Ambos Servicios" : "Both Services",
-      };
+      formT?.serviceOptions && typeof formT.serviceOptions === "object"
+        ? formT.serviceOptions
+        : {
+            grant:
+              language === "es"
+                ? "Consultoría de Subvenciones"
+                : "Grant Consulting",
+            tech:
+              language === "es"
+                ? "Tecnología y Automatización"
+                : "Technology & Automation",
+            both: language === "es" ? "Ambos Servicios" : "Both Services",
+          };
 
     return {
       kicker: language === "es" ? "Comienza hoy" : "Get Started Today",
-      title: t?.("contact.title") || (language === "es" ? "Contáctanos" : "Get in Touch"),
+      title:
+        t?.("contact.title") ||
+        (language === "es" ? "Contáctanos" : "Get in Touch"),
       subtitle:
         t?.("contact.subtitle") ||
         (language === "es"
           ? "Cuéntanos qué necesitas y te respondemos rápido."
           : "Tell us what you need and we’ll reply quickly."),
       formT: {
-        name: formT.name || (language === "es" ? "Nombre Completo" : "Full Name"),
-        org: formT.org || (language === "es" ? "Nombre de la Organización" : "Organization Name"),
-        email: formT.email || (language === "es" ? "Correo Electrónico" : "Email Address"),
-        service: formT.service || (language === "es" ? "Tipo de Servicio" : "Service Type"),
-        message: formT.message || (language === "es" ? "Mensaje (opcional)" : "Message (optional)"),
-        submit: formT.submit || (language === "es" ? "Enviar Mensaje" : "Send Message"),
-        sending: formT.sending || (language === "es" ? "Enviando..." : "Sending..."),
-        success:
-          formT.success ||
+        name: formT?.name || (language === "es" ? "Nombre Completo" : "Full Name"),
+        org:
+          formT?.org ||
           (language === "es"
-            ? "¡Mensaje enviado! Te responderemos pronto."
-            : "Message sent! We’ll get back to you soon."),
-        error:
-          formT.error ||
-          (language === "es"
-            ? "No se pudo enviar. Intenta de nuevo."
-            : "Could not send. Please try again."),
+            ? "Nombre de la Organización"
+            : "Organization Name"),
+        email:
+          formT?.email ||
+          (language === "es" ? "Correo Electrónico" : "Email Address"),
+        service:
+          formT?.service ||
+          (language === "es" ? "Tipo de Servicio" : "Service Type"),
+        message:
+          formT?.message ||
+          (language === "es" ? "Mensaje (opcional)" : "Message (optional)"),
+        submit:
+          formT?.submit ||
+          (language === "es" ? "Enviar Mensaje" : "Send Message"),
+        sending:
+          formT?.sending || (language === "es" ? "Enviando..." : "Sending..."),
         privacy:
-          formT.privacy ||
+          formT?.privacy ||
           (language === "es"
             ? "Respetamos tu privacidad. Tu información nunca será compartida."
             : "We respect your privacy. Your information will never be shared."),
@@ -122,8 +104,10 @@ export default function ContactForm() {
           ? "Intenta otra vez o contáctanos directamente."
           : "Please try again or contact us directly.",
       tryAgain: language === "es" ? "Intentar de nuevo" : "Try Again",
-      sendAnother: language === "es" ? "Enviar otro mensaje" : "Send Another",
-      required: language === "es" ? "Este campo es requerido" : "This field is required",
+      sendAnother:
+        language === "es" ? "Enviar otro mensaje" : "Send Another",
+      required:
+        language === "es" ? "Este campo es requerido" : "This field is required",
       invalidEmail:
         language === "es"
           ? "Por favor ingresa un correo electrónico válido"
@@ -136,12 +120,13 @@ export default function ContactForm() {
           language === "es"
             ? "Cuéntanos sobre tu proyecto o preguntas..."
             : "Tell us about your project or questions...",
-        selectService: language === "es" ? "Selecciona un servicio" : "Select a service",
+        selectService:
+          language === "es" ? "Selecciona un servicio" : "Select a service",
       },
     };
   }, [t, language]);
 
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     fullName: "",
     organization: "",
     email: "",
@@ -150,16 +135,16 @@ export default function ContactForm() {
     honeypot: "",
   });
 
-  const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
-  const handleChange = <K extends keyof FormData>(field: K, value: FormData[K]) => {
+  const handleChange = (field, value) => {
     setFormData((p) => ({ ...p, [field]: value }));
     if (errors[field]) setErrors((p) => ({ ...p, [field]: undefined }));
   };
 
   const validate = () => {
-    const e: Errors = {};
+    const e = {};
     if (!formData.fullName.trim()) e.fullName = ui.required;
     if (!formData.organization.trim()) e.organization = ui.required;
 
@@ -189,7 +174,7 @@ export default function ContactForm() {
     setErrors({});
   };
 
-  const handleSubmit = async (ev: React.FormEvent) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault();
     if (!validate()) return;
 
@@ -214,7 +199,7 @@ export default function ContactForm() {
 
     // Timeout so we don't hang forever
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 12_000);
+    const timeout = window.setTimeout(() => controller.abort(), 12000);
 
     try {
       const resp = await fetch(WEBHOOK_URL, {
@@ -230,16 +215,17 @@ export default function ContactForm() {
       } else {
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
       setStatus("error");
     } finally {
       window.clearTimeout(timeout);
     }
   };
 
-  // Make placeholder styling reliable: if no value, we show muted style in trigger
-  const serviceTriggerTextClass =
-    formData.serviceType ? "text-white" : "text-slate-500";
+  // Reliable placeholder styling for shadcn Select
+  const serviceTriggerTextClass = formData.serviceType
+    ? "text-white"
+    : "text-slate-500";
 
   return (
     <section
@@ -247,7 +233,10 @@ export default function ContactForm() {
       className="relative py-24 md:py-32 bg-gradient-to-b from-slate-950 to-black"
     >
       {/* Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        aria-hidden="true"
+      >
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-500/6 rounded-full blur-[140px] transform-gpu" />
         <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-amber-500/3 rounded-full blur-[100px] transform-gpu" />
       </div>
@@ -398,7 +387,9 @@ export default function ContactForm() {
                       <Input
                         id="organization"
                         value={formData.organization}
-                        onChange={(e) => handleChange("organization", e.target.value)}
+                        onChange={(e) =>
+                          handleChange("organization", e.target.value)
+                        }
                         placeholder={ui.placeholders.org}
                         maxLength={150}
                         className={`bg-slate-900 border-slate-700 text-white placeholder:text-slate-500 rounded-xl h-12 focus:border-emerald-500 focus:ring-emerald-500/20 ${
@@ -406,7 +397,9 @@ export default function ContactForm() {
                         }`}
                       />
                       {errors.organization && (
-                        <p className="text-red-400 text-sm mt-1">{errors.organization}</p>
+                        <p className="text-red-400 text-sm mt-1">
+                          {errors.organization}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -438,7 +431,7 @@ export default function ContactForm() {
 
                     <Select
                       value={formData.serviceType}
-                      onValueChange={(value) => handleChange("serviceType", value as ServiceType)}
+                      onValueChange={(value) => handleChange("serviceType", value)}
                     >
                       <SelectTrigger
                         className={`bg-slate-900 border-slate-700 rounded-xl h-12 focus:border-emerald-500 focus:ring-emerald-500/20 ${
