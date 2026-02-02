@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { RippleButton } from '@/components/ui/ripple-button';
 import { Badge } from '@/components/ui/badge';
 import { Check, Minus, MoveRight, PhoneCall } from 'lucide-react';
 
@@ -152,18 +152,14 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Button
+              <RippleButton
                 onClick={() => scrollTo('diagnostico')}
-                className={`mt-8 w-full gap-2 ${
-                  plan.popular
-                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                    : ''
-                }`}
+                className="mt-8 w-full"
                 variant={plan.popular ? 'default' : 'outline'}
               >
                 Agendar llamada
                 <MoveRight className="h-4 w-4" aria-hidden />
-              </Button>
+              </RippleButton>
             </div>
           ))}
         </div>
@@ -265,10 +261,10 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Button
+              <RippleButton
                 onClick={() => scrollTo(plan.enterprise ? 'contacto' : 'diagnostico')}
                 variant="outline"
-                className="mt-8 w-full gap-2"
+                className="mt-8 w-full"
               >
                 {plan.enterprise ? (
                   <>
@@ -281,7 +277,7 @@ export default function Pricing() {
                     <MoveRight className="h-4 w-4" aria-hidden />
                   </>
                 )}
-              </Button>
+              </RippleButton>
             </div>
           ))}
         </div>
