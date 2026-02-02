@@ -44,19 +44,19 @@ export default function Contact() {
   const inputClass = 'w-full px-4 py-3 rounded-lg bg-[#0B0F14] border border-[#1F2630] text-[14px] text-[#E8EEF5] placeholder-[#9AA6B2]/40 focus:outline-none focus:border-emerald-600/50 transition-colors';
 
   return (
-    <section id="contacto" className="py-28 md:py-40 border-t border-[#1F2630]">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section id="contacto" className="py-16 sm:py-24 md:py-28 lg:py-40 border-t border-[#1F2630]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="rounded-xl border border-[#1F2630] bg-[#11161C] overflow-hidden">
           <div className="grid md:grid-cols-2">
             {/* Left */}
-            <div className="p-8 md:p-12">
-              <h2 className="text-[28px] sm:text-[36px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] mb-4">
+            <div className="p-6 sm:p-8 md:p-12">
+              <h2 className="text-[26px] sm:text-[28px] md:text-[36px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] mb-3 sm:mb-4">
                 Hablemos
               </h2>
-              <p className="text-[15px] text-[#9AA6B2] leading-relaxed mb-8 max-w-sm">
+              <p className="text-[14px] sm:text-[15px] text-[#9AA6B2] leading-relaxed mb-6 sm:mb-8 max-w-sm">
                 Cuéntanos sobre tu organización y te contactamos con una propuesta personalizada.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <p className="text-[12px] text-[#9AA6B2]/40 uppercase tracking-wider mb-1">Email</p>
                   <p className="text-[14px] text-[#E8EEF5]">hello@grantlinker.com</p>
@@ -69,14 +69,14 @@ export default function Contact() {
             </div>
 
             {/* Right */}
-            <div className="border-t md:border-t-0 md:border-l border-[#1F2630] p-8 md:p-12">
+            <div className="border-t md:border-t-0 md:border-l border-[#1F2630] p-6 sm:p-8 md:p-12">
               {sent ? (
-                <div className="flex flex-col items-center justify-center h-full text-center">
-                  <p className="text-[20px] font-semibold text-[#E8EEF5] mb-2">Mensaje enviado</p>
-                  <p className="text-[14px] text-[#9AA6B2]">Te contactaremos pronto.</p>
+                <div className="flex flex-col items-center justify-center h-full text-center py-8">
+                  <p className="text-[18px] sm:text-[20px] font-semibold text-[#E8EEF5] mb-2">Mensaje enviado</p>
+                  <p className="text-[13px] sm:text-[14px] text-[#9AA6B2]">Te contactaremos pronto.</p>
                 </div>
               ) : (
-                <form onSubmit={submit} className="space-y-4">
+                <form onSubmit={submit} className="space-y-3 sm:space-y-4">
                   <input
                     type="text"
                     placeholder="Nombre"
@@ -120,11 +120,11 @@ export default function Contact() {
                   <Button
                     type="submit"
                     disabled={sending}
-                    className="w-full py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg"
+                    className="w-full py-3.5 sm:py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg"
                   >
                     {sending ? 'Enviando...' : 'Enviar mensaje'}
                   </Button>
-                  <p className="text-[11px] text-[#9AA6B2]/30 text-center">
+                  <p className="text-[10px] sm:text-[11px] text-[#9AA6B2]/30 text-center">
                     Tu información se mantiene privada y segura.
                   </p>
                 </form>

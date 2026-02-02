@@ -70,7 +70,7 @@ function PlanCard({ plan }) {
 
   return (
     <div
-      className={`relative flex flex-col p-7 rounded-xl ${
+      className={`relative flex flex-col p-5 sm:p-6 md:p-7 rounded-xl ${
         plan.popular
           ? 'bg-[#151B22] border-2 border-emerald-600/60'
           : plan.enterprise
@@ -79,17 +79,17 @@ function PlanCard({ plan }) {
       }`}
     >
       {plan.popular && (
-        <span className="absolute -top-2.5 left-6 px-2.5 py-0.5 bg-emerald-600 text-white text-[11px] font-medium rounded-md">
+        <span className="absolute -top-2.5 left-4 sm:left-6 px-2.5 py-0.5 bg-emerald-600 text-white text-[10px] sm:text-[11px] font-medium rounded-md">
           Más popular
         </span>
       )}
 
-      <h3 className="text-[14px] font-semibold text-[#E8EEF5] mb-1">{plan.name}</h3>
-      <p className="text-[13px] text-[#9AA6B2] mb-6">{plan.price}</p>
+      <h3 className="text-[13px] sm:text-[14px] font-semibold text-[#E8EEF5] mb-1">{plan.name}</h3>
+      <p className="text-[12px] sm:text-[13px] text-[#9AA6B2] mb-5 sm:mb-6">{plan.price}</p>
 
-      <ul className="space-y-2.5 mb-8 flex-1">
+      <ul className="space-y-2 sm:space-y-2.5 mb-6 sm:mb-8 flex-1">
         {plan.features.map((f) => (
-          <li key={f} className="text-[13px] text-[#9AA6B2]/70 flex items-start gap-2">
+          <li key={f} className="text-[12px] sm:text-[13px] text-[#9AA6B2]/70 flex items-start gap-2">
             <span className="w-1 h-1 rounded-full bg-[#9AA6B2]/40 flex-shrink-0 mt-1.5" />
             {f}
           </li>
@@ -98,7 +98,7 @@ function PlanCard({ plan }) {
 
       <Button
         onClick={() => scrollTo('diagnostico')}
-        className={`w-full py-2.5 h-auto text-[13px] font-medium rounded-lg ${
+        className={`w-full py-3 sm:py-2.5 h-auto text-[13px] font-medium rounded-lg ${
           plan.popular
             ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
             : plan.enterprise
@@ -114,22 +114,22 @@ function PlanCard({ plan }) {
 
 export default function Pricing() {
   return (
-    <section id="planes" className="py-28 md:py-40 border-t border-[#1F2630]">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <h2 className="text-[36px] sm:text-[44px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] mb-4">
+    <section id="planes" className="py-16 sm:py-24 md:py-28 lg:py-40 border-t border-[#1F2630]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <h2 className="text-[32px] sm:text-[36px] md:text-[44px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] mb-3 sm:mb-4">
           Planes
         </h2>
-        <p className="text-[15px] text-[#9AA6B2] mb-16 max-w-lg">
+        <p className="text-[14px] sm:text-[15px] text-[#9AA6B2] mb-10 sm:mb-16 max-w-lg">
           Infraestructura a la medida de tu organización. Sin contratos largos. Escala cuando lo necesites.
         </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-3 sm:mb-4">
           {ROW1.map((plan) => (
             <PlanCard key={plan.name} plan={plan} />
           ))}
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
           {ROW2.map((plan) => (
             <PlanCard key={plan.name} plan={plan} />
           ))}

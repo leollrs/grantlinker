@@ -11,14 +11,14 @@ export default function CTA() {
   };
 
   return (
-    <section className="py-28 md:py-40 border-t border-[#1F2630]">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <h2 className="text-[36px] sm:text-[44px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] max-w-[700px] mb-8">
+    <section className="py-16 sm:py-24 md:py-28 lg:py-40 border-t border-[#1F2630]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <h2 className="text-[30px] sm:text-[36px] md:text-[44px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] max-w-[700px] mb-6 sm:mb-8">
           ¿Listo para escalar tu organización?
         </h2>
         <Button
           onClick={() => scrollTo('diagnostico')}
-          className="px-7 py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg"
+          className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg"
         >
           Agendar llamada
         </Button>

@@ -177,26 +177,26 @@ export default function Diagnosis() {
   });
 
   return (
-    <section id="diagnostico" className="py-28 md:py-40 border-t border-[#1F2630]">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <h2 className="text-[36px] sm:text-[44px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] mb-4">
+    <section id="diagnostico" className="py-16 sm:py-24 md:py-28 lg:py-40 border-t border-[#1F2630]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <h2 className="text-[32px] sm:text-[36px] md:text-[44px] font-semibold text-[#E8EEF5] tracking-tight leading-[1.1] mb-3 sm:mb-4">
           Diagnóstico Inteligente
         </h2>
-        <p className="text-[15px] text-[#9AA6B2] mb-16 max-w-lg">
+        <p className="text-[14px] sm:text-[15px] text-[#9AA6B2] mb-10 sm:mb-16 max-w-lg">
           Responde 5 preguntas. Recomendamos el sistema ideal para tu organización.
         </p>
 
         <div className="rounded-xl border border-[#1F2630] bg-[#11161C] overflow-hidden">
           {/* Top bar */}
-          <div className="flex items-center justify-between px-6 md:px-8 py-4 border-b border-[#1F2630]">
-            <span className="text-[13px] text-[#9AA6B2]">
+          <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 py-3 sm:py-4 border-b border-[#1F2630]">
+            <span className="text-[12px] sm:text-[13px] text-[#9AA6B2]">
               {submitted ? 'Resultado' : `Paso ${step + 1} de ${total}`}
             </span>
-            <div className="flex gap-1">
+            <div className="flex gap-0.5 sm:gap-1">
               {STEPS.map((_, i) => (
                 <div
                   key={i}
-                  className={`w-6 h-1 rounded-full transition-colors ${
+                  className={`w-4 sm:w-6 h-1 rounded-full transition-colors ${
                     submitted || i <= step ? 'bg-emerald-600' : 'bg-[#1F2630]'
                   }`}
                 />
@@ -205,13 +205,13 @@ export default function Diagnosis() {
           </div>
 
           {submitted && finalRec ? (
-            <div className="p-6 md:p-10">
-              <div className="grid md:grid-cols-2 gap-10">
+            <div className="p-5 sm:p-6 md:p-10">
+              <div className="grid md:grid-cols-2 gap-8 sm:gap-10">
                 <div>
-                  <p className="text-[12px] text-emerald-500 font-medium uppercase tracking-wider mb-4">Plan recomendado</p>
-                  <h3 className="text-[28px] font-semibold text-[#E8EEF5] tracking-tight mb-2">{finalRec.plan}</h3>
-                  <p className="text-[15px] text-[#9AA6B2] mb-4">{finalRec.price}</p>
-                  <ul className="space-y-2 mb-8">
+                  <p className="text-[11px] sm:text-[12px] text-emerald-500 font-medium uppercase tracking-wider mb-3 sm:mb-4">Plan recomendado</p>
+                  <h3 className="text-[24px] sm:text-[28px] font-semibold text-[#E8EEF5] tracking-tight mb-2">{finalRec.plan}</h3>
+                  <p className="text-[14px] sm:text-[15px] text-[#9AA6B2] mb-4">{finalRec.price}</p>
+                  <ul className="space-y-2 mb-6 sm:mb-8">
                     {finalRec.reasons.map((r) => (
                       <li key={r} className="text-[14px] text-[#9AA6B2]/70 flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-emerald-500/60 flex-shrink-0 mt-2" />
@@ -219,20 +219,20 @@ export default function Diagnosis() {
                       </li>
                     ))}
                   </ul>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button className="px-7 py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg">
+                  <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+                    <Button className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg">
                       Agendar llamada
                     </Button>
                     <Button
                       variant="outline"
                       onClick={reset}
-                      className="px-7 py-3 h-auto text-[#9AA6B2] hover:text-[#E8EEF5] text-sm font-medium rounded-lg border-[#1F2630] hover:border-[#2A3441] bg-transparent hover:bg-transparent"
+                      className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-3 h-auto text-[#9AA6B2] hover:text-[#E8EEF5] text-sm font-medium rounded-lg border-[#1F2630] hover:border-[#2A3441] bg-transparent hover:bg-transparent"
                     >
                       Repetir
                     </Button>
                   </div>
                 </div>
-                <div className="border-t md:border-t-0 md:border-l border-[#1F2630] pt-6 md:pt-0 md:pl-10">
+                <div className="border-t md:border-t-0 md:border-l border-[#1F2630] pt-6 md:pt-0 md:pl-8 lg:md:pl-10">
                   <p className="text-[12px] text-[#9AA6B2]/50 uppercase tracking-wider mb-4">Tus respuestas</p>
                   <div className="space-y-3">
                     {STEPS.map((s) => {
@@ -250,8 +250,8 @@ export default function Diagnosis() {
             </div>
           ) : (
             <div className="grid md:grid-cols-5">
-              <div className="md:col-span-3 p-6 md:p-10">
-                <h3 className="text-[22px] font-semibold text-[#E8EEF5] mb-8">
+              <div className="md:col-span-3 p-5 sm:p-6 md:p-10">
+                <h3 className="text-[19px] sm:text-[22px] font-semibold text-[#E8EEF5] mb-6 sm:mb-8">
                   {current.question}
                 </h3>
                 <div className="space-y-2">
@@ -259,7 +259,7 @@ export default function Diagnosis() {
                     <button
                       key={option.value}
                       onClick={() => select(option.value)}
-                      className="w-full text-left px-5 py-4 rounded-lg border border-[#1F2630] hover:border-[#2A3441] hover:bg-[#151B22] transition-all text-[14px] text-[#9AA6B2] hover:text-[#E8EEF5]"
+                      className="w-full text-left px-4 sm:px-5 py-3.5 sm:py-4 rounded-lg border border-[#1F2630] hover:border-[#2A3441] hover:bg-[#151B22] transition-all text-[13px] sm:text-[14px] text-[#9AA6B2] hover:text-[#E8EEF5]"
                     >
                       {option.label}
                     </button>
@@ -268,13 +268,13 @@ export default function Diagnosis() {
                 {step > 0 && (
                   <button
                     onClick={() => setStep(step - 1)}
-                    className="mt-6 text-[13px] text-[#9AA6B2]/50 hover:text-[#9AA6B2] transition-colors"
+                    className="mt-5 sm:mt-6 text-[12px] sm:text-[13px] text-[#9AA6B2]/50 hover:text-[#9AA6B2] transition-colors"
                   >
                     Atrás
                   </button>
                 )}
               </div>
-              <div className="md:col-span-2 border-t md:border-t-0 md:border-l border-[#1F2630] p-6 md:p-8">
+              <div className="md:col-span-2 border-t md:border-t-0 md:border-l border-[#1F2630] p-5 sm:p-6 md:p-8">
                 <p className="text-[12px] text-[#9AA6B2]/40 uppercase tracking-wider mb-4">Respuestas</p>
                 {answeredSummary.length === 0 && !liveRec ? (
                   <p className="text-[13px] text-[#9AA6B2]/30">Sin respuestas aún</p>

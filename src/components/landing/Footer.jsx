@@ -11,11 +11,11 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-[#1F2630] bg-[#11161C]">
-      <div className="max-w-[1200px] mx-auto px-6 py-16">
-        <div className="grid sm:grid-cols-3 gap-10 mb-12">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid sm:grid-cols-3 gap-8 sm:gap-10 mb-10 sm:mb-12">
           <div>
-            <span className="text-[15px] font-semibold text-[#E8EEF5] tracking-tight">GrantLinker</span>
-            <p className="text-[13px] text-[#9AA6B2]/60 mt-3 leading-relaxed max-w-[240px]">
+            <span className="text-[14px] sm:text-[15px] font-semibold text-[#E8EEF5] tracking-tight">GrantLinker</span>
+            <p className="text-[12px] sm:text-[13px] text-[#9AA6B2]/60 mt-2 sm:mt-3 leading-relaxed max-w-[240px]">
               Infraestructura inteligente para organizaciones que necesitan asegurar financiamiento y escalar operaciones.
             </p>
           </div>
