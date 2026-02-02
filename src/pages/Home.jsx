@@ -15,7 +15,6 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
-        <Stats />
         <Systems />
         <Pricing />
         <Diagnosis />
