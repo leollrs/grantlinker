@@ -27,6 +27,7 @@
     --ring: 160 84% 39%;
     --radius: 0.75rem;
     --panel: 215 20% 11%;
+    --button-ripple-color: rgba(255, 255, 255, 0.5);
   }
 
   * {
