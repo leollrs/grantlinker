@@ -1,0 +1,1 @@
+// Multi-type ripple buttons component
