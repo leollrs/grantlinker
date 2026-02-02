@@ -1,0 +1,1 @@
+// Ripple button component - empty placeholder
