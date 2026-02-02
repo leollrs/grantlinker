@@ -1,99 +1,100 @@
-import React, { useState } from 'react';
-import { RippleButton } from '@/components/ui/ripple-button';
-import { Badge } from '@/components/ui/badge';
-import { Check, Minus, MoveRight, PhoneCall } from 'lucide-react';
+import React, { useState } from "react";
+import { RippleButton } from "@/components/ui/ripple-button";
+import { Badge } from "@/components/ui/badge";
+import { Check, Minus, MoveRight, PhoneCall } from "lucide-react";
 
 const PLANS = [
   {
-    name: 'Recepcionista IA',
-    price: '$199',
-    period: '/mes',
-    prefix: 'Desde',
+    id: "receptionist",
+    name: "Recepcionista IA",
+    prefix: "Desde",
+    price: "199",
+    period: "/mes",
     popular: false,
     enterprise: false,
     features: [
-      'Atención de llamadas 24/7',
-      'Agendamiento automático',
-      'Transferencia inteligente',
+      "Atención de llamadas 24/7",
+      "Agendamiento automático",
+      "Transferencia inteligente",
     ],
   },
   {
-    name: 'Sistema Operativo Básico',
-    price: '$599',
-    period: '/mes',
+    id: "basic",
+    name: "Sistema Operativo Básico",
+    prefix: "Desde",
+    price: "599",
+    period: "/mes",
     popular: true,
     enterprise: false,
     features: [
-      'Automatización de workflows',
-      'CRM integrado',
-      'Chatbot con IA',
-      'Recordatorios automáticos',
-      'Soporte prioritario',
+      "Automatización de workflows",
+      "CRM integrado",
+      "Chatbot con IA",
+      "Recordatorios automáticos",
+      "Soporte prioritario",
     ],
   },
   {
-    name: 'Presencia + Automatización',
-    price: '$997',
-    period: ' instalación + $599/mes',
+    id: "presence",
+    name: "Presencia + Automatización",
+    // Setup (first month)
+    setupPrefix: "Desde",
+    setupPrice: "997",
+    setupSuffix: "instalación (primer mes)",
+    // Monthly (starting month 2)
+    monthlyPrefix: "Desde",
+    monthlyPrice: "599",
+    monthlySuffix: "/mes desde el segundo mes",
     popular: false,
     enterprise: false,
     features: [
-      'Sitio web profesional',
-      'Sistema de automatización',
-      'Integraciones personalizadas',
-      'Soporte dedicado',
+      "Sitio web profesional",
+      "Sistema de automatización",
+      "Integraciones personalizadas",
+      "Soporte dedicado",
     ],
   },
 ];
 
 const ENTERPRISE = [
   {
-    name: 'Implementación Completa',
-    price: '$2,499',
-    prefix: 'Desde',
+    id: "full",
+    name: "Implementación Completa",
+    prefix: "Desde",
+    price: "2,499",
+    period: "",
     enterprise: false,
     features: [
-      'Infraestructura digital completa',
-      'Automatización end-to-end',
-      'Inteligencia de subvenciones',
-      'Onboarding personalizado',
+      "Infraestructura digital completa",
+      "Automatización end-to-end",
+      "Inteligencia de subvenciones",
+      "Onboarding personalizado",
     ],
   },
   {
-    name: 'Desarrollo Institucional',
-    price: '$9,999+',
-    prefix: 'Desde',
+    id: "institutional",
+    name: "Desarrollo Institucional",
+    prefix: "Desde",
+    price: "9,999+",
+    period: "",
     enterprise: true,
     features: [
-      'Arquitectura de sistemas completa',
-      'Equipo dedicado de implementación',
-      'SLA garantizado',
-      'Solución enterprise a medida',
+      "Arquitectura de sistemas completa",
+      "Equipo dedicado de implementación",
+      "SLA garantizado",
+      "Solución enterprise a medida",
     ],
   },
 ];
 
-// Union of all ROW1 features for comparison matrix
-const ALL_FEATURES = [
-  'Atención de llamadas 24/7',
-  'Agendamiento automático',
-  'Transferencia inteligente',
-  'Automatización de workflows',
-  'CRM integrado',
-  'Chatbot con IA',
-  'Recordatorios automáticos',
-  'Soporte prioritario',
-  'Sitio web profesional',
-  'Sistema de automatización',
-  'Integraciones personalizadas',
-  'Soporte dedicado',
-];
+// Always-accurate union of all ROW1 features for comparison matrix
+const ALL_FEATURES = Array.from(new Set(PLANS.flatMap((p) => p.features)));
 
 function scrollTo(id) {
   const el = document.getElementById(id);
   if (el) {
     const top = el.getBoundingClientRect().top + window.pageYOffset - 64;
-    window.scrollTo({ top, behavior: 'smooth' });
+    window.scrollTo({ top, behavior: "smooth" });
   }
 }
 
@@ -121,11 +122,11 @@ export default function Pricing() {
         <div className="grid gap-4 md:grid-cols-3">
           {PLANS.map((plan) => (
             <div
-              key={plan.name}
+              key={plan.id}
               className={`relative flex flex-col rounded-xl border p-7 ${
                 plan.popular
-                  ? 'border-emerald-600/60 bg-card shadow-lg shadow-emerald-600/5'
-                  : 'border-border bg-card/60'
+                  ? "border-emerald-600/60 bg-card shadow-lg shadow-emerald-600/5"
+                  : "border-border bg-card/60"
               }`}
             >
               {plan.popular && (
@@ -135,27 +136,72 @@ export default function Pricing() {
               )}
 
               <h3 className="text-sm font-semibold">{plan.name}</h3>
-              <div className="mt-4 flex items-baseline gap-1">
-                {plan.prefix && (
-                  <span className="text-xs text-muted-foreground">{plan.prefix}</span>
+
+              {/* Price */}
+              <div className="mt-4 space-y-2">
+                {/* Standard monthly pricing */}
+                {plan.price && (
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-xs text-muted-foreground">
+                      {plan.prefix || "Desde"}
+                    </span>
+                    <span className="text-3xl font-semibold tracking-tight">
+                      ${plan.price}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {plan.period || "/mes"}
+                    </span>
+                  </div>
                 )}
-                <span className="text-3xl font-semibold tracking-tight">{plan.price}</span>
-                <span className="text-xs text-muted-foreground">{plan.period}</span>
+
+                {/* Setup + monthly (starts month 2) */}
+                {plan.setupPrice && (
+                  <div className="space-y-1">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-xs text-muted-foreground">
+                        {plan.setupPrefix || "Desde"}
+                      </span>
+                      <span className="text-2xl font-semibold tracking-tight">
+                        ${plan.setupPrice}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {plan.setupSuffix}
+                      </span>
+                    </div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-xs text-muted-foreground">
+                        {plan.monthlyPrefix || "Desde"}
+                      </span>
+                      <span className="text-2xl font-semibold tracking-tight">
+                        ${plan.monthlyPrice}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {plan.monthlySuffix}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <ul className="mt-6 flex-1 space-y-3">
                 {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Check className="mt-[2px] h-4 w-4 text-emerald-500 shrink-0" aria-hidden />
+                  <li
+                    key={f}
+                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                  >
+                    <Check
+                      className="mt-[2px] h-4 w-4 text-emerald-500 shrink-0"
+                      aria-hidden
+                    />
                     <span>{f}</span>
                   </li>
                 ))}
               </ul>
 
               <RippleButton
-                onClick={() => scrollTo('diagnostico')}
+                onClick={() => scrollTo("diagnostico")}
                 className="mt-8 w-full"
-                variant={plan.popular ? 'default' : 'outline'}
+                variant={plan.popular ? "default" : "outline"}
               >
                 Agendar llamada
                 <MoveRight className="h-4 w-4" aria-hidden />
@@ -167,10 +213,10 @@ export default function Pricing() {
         {/* Comparison toggle */}
         <div className="mt-8 flex justify-center">
           <button
-            onClick={() => setShowComparison(!showComparison)}
+            onClick={() => setShowComparison((v) => !v)}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
           >
-            {showComparison ? 'Ocultar comparación' : 'Comparar planes'}
+            {showComparison ? "Ocultar comparación" : "Comparar planes"}
           </button>
         </div>
 
@@ -180,9 +226,14 @@ export default function Pricing() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="py-4 px-6 text-left font-medium text-muted-foreground w-[40%]">Funcionalidad</th>
+                  <th className="py-4 px-6 text-left font-medium text-muted-foreground w-[40%]">
+                    Funcionalidad
+                  </th>
                   {PLANS.map((p) => (
-                    <th key={p.name} className="py-4 px-4 text-center font-medium">
+                    <th
+                      key={p.id}
+                      className="py-4 px-4 text-center font-medium"
+                    >
                       {p.name}
                     </th>
                   ))}
@@ -190,14 +241,29 @@ export default function Pricing() {
               </thead>
               <tbody>
                 {ALL_FEATURES.map((feature, i) => (
-                  <tr key={feature} className={i < ALL_FEATURES.length - 1 ? 'border-b border-border/50' : ''}>
-                    <td className="py-3 px-6 text-muted-foreground">{feature}</td>
+                  <tr
+                    key={feature}
+                    className={
+                      i < ALL_FEATURES.length - 1
+                        ? "border-b border-border/50"
+                        : ""
+                    }
+                  >
+                    <td className="py-3 px-6 text-muted-foreground">
+                      {feature}
+                    </td>
                     {PLANS.map((plan) => (
-                      <td key={plan.name} className="py-3 px-4 text-center">
+                      <td key={plan.id} className="py-3 px-4 text-center">
                         {plan.features.includes(feature) ? (
-                          <Check className="inline h-4 w-4 text-emerald-500" aria-hidden />
+                          <Check
+                            className="inline h-4 w-4 text-emerald-500"
+                            aria-hidden
+                          />
                         ) : (
-                          <Minus className="inline h-4 w-4 text-muted-foreground/30" aria-hidden />
+                          <Minus
+                            className="inline h-4 w-4 text-muted-foreground/30"
+                            aria-hidden
+                          />
                         )}
                       </td>
                     ))}
@@ -212,15 +278,27 @@ export default function Pricing() {
         {showComparison && (
           <div className="mt-8 md:hidden space-y-4">
             {PLANS.map((plan) => (
-              <div key={plan.name} className="rounded-xl border border-border bg-card/40 p-5">
+              <div
+                key={plan.id}
+                className="rounded-xl border border-border bg-card/40 p-5"
+              >
                 <h4 className="text-sm font-semibold mb-3">{plan.name}</h4>
                 <ul className="space-y-2">
                   {ALL_FEATURES.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <li
+                      key={feature}
+                      className="flex items-center gap-2 text-sm text-muted-foreground"
+                    >
                       {plan.features.includes(feature) ? (
-                        <Check className="h-4 w-4 text-emerald-500 shrink-0" aria-hidden />
+                        <Check
+                          className="h-4 w-4 text-emerald-500 shrink-0"
+                          aria-hidden
+                        />
                       ) : (
-                        <Minus className="h-4 w-4 text-muted-foreground/30 shrink-0" aria-hidden />
+                        <Minus
+                          className="h-4 w-4 text-muted-foreground/30 shrink-0"
+                          aria-hidden
+                        />
                       )}
                       <span>{feature}</span>
                     </li>
@@ -235,34 +313,49 @@ export default function Pricing() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2">
           {ENTERPRISE.map((plan) => (
             <div
-              key={plan.name}
+              key={plan.id}
               className="relative flex flex-col rounded-xl border border-border bg-muted/30 p-7"
             >
               {plan.enterprise && (
-                <Badge variant="outline" className="absolute -top-2.5 left-6 text-[11px] bg-background">
+                <Badge
+                  variant="outline"
+                  className="absolute -top-2.5 left-6 text-[11px] bg-background"
+                >
                   Enterprise
                 </Badge>
               )}
 
               <h3 className="text-sm font-semibold">{plan.name}</h3>
+
               <div className="mt-4 flex items-baseline gap-1">
-                {plan.prefix && (
-                  <span className="text-xs text-muted-foreground">{plan.prefix}</span>
-                )}
-                <span className="text-3xl font-semibold tracking-tight">{plan.price}</span>
+                <span className="text-xs text-muted-foreground">
+                  {plan.prefix || "Desde"}
+                </span>
+                <span className="text-3xl font-semibold tracking-tight">
+                  ${plan.price}
+                </span>
+                {plan.period ? (
+                  <span className="text-xs text-muted-foreground">{plan.period}</span>
+                ) : null}
               </div>
 
               <ul className="mt-6 flex-1 space-y-3">
                 {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Check className="mt-[2px] h-4 w-4 text-emerald-500 shrink-0" aria-hidden />
+                  <li
+                    key={f}
+                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                  >
+                    <Check
+                      className="mt-[2px] h-4 w-4 text-emerald-500 shrink-0"
+                      aria-hidden
+                    />
                     <span>{f}</span>
                   </li>
                 ))}
               </ul>
 
               <RippleButton
-                onClick={() => scrollTo(plan.enterprise ? 'contacto' : 'diagnostico')}
+                onClick={() => scrollTo(plan.enterprise ? "contacto" : "diagnostico")}
                 variant="outline"
                 className="mt-8 w-full"
               >
