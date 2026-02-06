@@ -1,6 +1,6 @@
 import React from "react";
 import { Check, Box, Clock, Bell } from "lucide-react";
-import SystemFlowDiagram from "./SystemFlowDiagram";
+import BeforeAfterComparison from "./BeforeAfterComparison";
 
 export default function ProductOverview() {
   const benefits = [
@@ -41,7 +41,7 @@ export default function ProductOverview() {
           </div>
 
           <div className="relative mt-8 lg:mt-0">
-            <SystemFlowDiagram />
+            <BeforeAfterComparison />
           </div>
         </div>
       </div>
