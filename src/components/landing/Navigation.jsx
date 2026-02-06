@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
 const NAV_ITEMS = [
-  { id: 'sistemas', label: 'Sistemas' },
+  { id: 'producto', label: 'Producto' },
   { id: 'planes', label: 'Planes' },
   { id: 'diagnostico', label: 'Diagnóstico' },
   { id: 'contacto', label: 'Contacto' },
@@ -55,7 +55,7 @@ export default function Navigation() {
                 </button>
               ))}
               <Button
-                onClick={() => scrollTo('diagnostico')}
+                onClick={() => scrollTo('contacto')}
                 className="text-[13px] font-medium px-4 py-2 h-auto bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg"
               >
                 Agendar llamada
@@ -90,7 +90,7 @@ export default function Navigation() {
               </button>
             ))}
             <Button
-              onClick={() => scrollTo('diagnostico')}
+              onClick={() => scrollTo('contacto')}
               className="mt-6 w-full py-3 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg"
             >
               Agendar llamada

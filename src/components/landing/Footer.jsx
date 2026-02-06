@@ -24,7 +24,7 @@ export default function Footer() {
             <p className="text-[12px] text-[#9AA6B2]/40 uppercase tracking-wider mb-4">Navegación</p>
             <ul className="space-y-2.5">
               {[
-                { id: 'sistemas', label: 'Sistemas' },
+                { id: 'producto', label: 'Producto' },
                 { id: 'planes', label: 'Planes' },
                 { id: 'diagnostico', label: 'Diagnóstico' },
                 { id: 'contacto', label: 'Contacto' },
