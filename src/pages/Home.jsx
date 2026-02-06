@@ -10,11 +10,13 @@ import Diagnosis from '../components/landing/Diagnosis';
 import Contact from '../components/landing/Contact';
 import FinalCTA from '../components/landing/FinalCTA';
 import Footer from '../components/landing/Footer';
+import Chatbot from '../components/landing/Chatbot';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0B0F14]">
       <Navigation />
+      <Chatbot />
       <main>
         <Hero />
         <TrustStrip />
