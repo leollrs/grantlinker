@@ -12,7 +12,7 @@ const scrollTo = (id) => {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-24 sm:pt-32 lg:pt-48 pb-16 sm:pb-24 lg:pb-32">
+    <section className="relative overflow-hidden min-h-screen flex items-center pt-20 sm:pt-32 lg:pt-48 pb-16 sm:pb-24 lg:pb-32">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-emerald-500/[0.03] blur-[160px]" />
       </div>
