@@ -78,8 +78,8 @@ export default function Navigation() {
 
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 bg-[#0B0F14]/98 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="relative pt-20 px-6 flex flex-col gap-0.5">
+          <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={() => setMobileOpen(false)} />
+          <div className="relative pt-20 px-6 flex flex-col gap-0.5 bg-black">
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
