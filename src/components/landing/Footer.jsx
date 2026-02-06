@@ -43,7 +43,7 @@ export default function Footer() {
 
           <div>
             <p className="text-[12px] text-[#9AA6B2]/40 uppercase tracking-wider mb-4">Contacto</p>
-            <p className="text-[13px] text-[#9AA6B2]">hello@grantlinker.com</p>
+            <p className="text-[13px] text-[#9AA6B2]">info@grantlinker.com</p>
           </div>
         </div>
 
