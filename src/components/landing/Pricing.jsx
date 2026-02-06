@@ -1,136 +1,119 @@
 import React from "react";
-import { RippleButton } from "@/components/ui/ripple-button";
-import { Badge } from "@/components/ui/badge";
-import { MoveRight, PhoneCall } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Globe, Phone, Zap } from "lucide-react";
 
-function scrollTo(id) {
+const scrollTo = (id) => {
   const el = document.getElementById(id);
-  if (!el) return;
-  const top = el.getBoundingClientRect().top + window.pageYOffset - 64;
-  window.scrollTo({ top, behavior: "smooth" });
-}
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.pageYOffset - 64;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+};
 
-const CORE_SERVICES = [
+const SERVICES = [
   {
+    icon: Globe,
     name: "Presencia Digital",
-    description: "Sitio web profesional con pagos, formularios y citas online.",
-    pricing: [
-      "Desde $247 configuración",
-      "Hosting desde $20/mes",
-      "Chatbot opcional",
-    ],
+    description: "Website profesional + formularios + citas online",
+    price: "247",
+    period: "setup",
     cta: "Agendar llamada",
+    popular: false,
   },
   {
+    icon: Phone,
     name: "Atención IA",
-    description:
-      "Recepcionista inteligente por mensajes y llamadas. Atiende clientes 24/7.",
-    pricing: [
-      "After hours desde $299/mes",
-      "24/7 desde $599/mes",
-      "Precio varía por horas y volumen",
-    ],
+    description: "Recepcionista inteligente 24/7",
+    price: "599",
+    period: "mes",
     cta: "Agendar llamada",
     popular: true,
   },
   {
-    name: "Presencia + IA",
-    description:
-      "Website + recepción IA totalmente conectados en una sola base de datos.",
-    pricing: [
-      "$997 primer mes (setup)",
-      "Luego el plan mensual de Atención IA elegido",
-    ],
-    cta: "Agendar llamada",
-  },
-];
-
-const ADVANCED = [
-  {
-    name: "Automatización Empresarial",
-    description:
-      "Workflows, CRM, integraciones y sistemas internos para empresas en crecimiento.",
-    pricing: [
-      "Desde $2,499 configuración",
-      "Mantenimiento mensual según alcance",
-    ],
+    icon: Zap,
+    name: "Infraestructura completa",
+    description: "Sistema + IA + automatización total",
+    price: "999",
+    period: "mes",
     cta: "Agendar diagnóstico",
-  },
-  {
-    name: "Desarrollo Institucional",
-    description:
-      "Arquitectura completa, automatización a gran escala y soluciones enterprise.",
-    pricing: [
-      "Desde $9,999 configuración",
-      "SLA y mantenimiento personalizados",
-    ],
-    cta: "Contactar",
-    enterprise: true,
+    popular: false,
   },
 ];
-
-function ServiceCard({ service }) {
-  return (
-    <div
-      className={`relative flex flex-col rounded-xl border p-7 bg-card/60 ${
-        service.popular ? "border-emerald-600 shadow-lg" : "border-border"
-      }`}
-    >
-      {service.popular && (
-        <Badge className="absolute -top-2.5 left-6 bg-emerald-600 text-white border-0 text-[11px]">
-          Más popular
-        </Badge>
-      )}
-
-      <h3 className="text-lg font-semibold">{service.name}</h3>
-
-      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-        {service.description}
-      </p>
-
-      <ul className="mt-6 space-y-2 text-sm text-muted-foreground flex-1">
-        {service.pricing.map((p) => (
-          <li key={p}>• {p}</li>
-        ))}
-      </ul>
-
-      <RippleButton
-        onClick={() => scrollTo("diagnostico")}
-        className="mt-8 w-full"
-      >
-        {service.cta}
-        {service.enterprise ? (
-          <PhoneCall className="h-4 w-4" />
-        ) : (
-          <MoveRight className="h-4 w-4" />
-        )}
-      </RippleButton>
-    </div>
-  );
-}
 
 export default function Pricing() {
   return (
-    <section id="planes" className="py-16 md:py-32">
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Core */}
-        <h2 className="text-3xl font-semibold mb-8">Servicios Principales</h2>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          {CORE_SERVICES.map((s) => (
-            <ServiceCard key={s.name} service={s} />
-          ))}
+    <section id="planes" className="py-24 sm:py-32 border-t border-white/5">
+      <div className="mx-auto max-w-[1280px] px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-[36px] sm:text-[44px] font-bold text-white leading-[1.1] tracking-tight mb-4">
+            Servicios diseñados para escalar
+          </h2>
+          <p className="text-[16px] text-[#9AA6B2] max-w-[600px] mx-auto">
+            Comienza con lo que necesitas hoy. Expande cuando tu operación lo pida.
+          </p>
         </div>
 
-        {/* Advanced */}
-        <h2 className="text-3xl font-semibold mt-16 mb-8">
-          Soluciones Avanzadas
-        </h2>
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {SERVICES.map((service) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={service.name}
+                className={`relative rounded-2xl border p-8 transition-all ${
+                  service.popular
+                    ? "border-emerald-500/50 bg-gradient-to-b from-emerald-950/20 to-transparent scale-105 shadow-xl shadow-emerald-900/10"
+                    : "border-white/10 bg-gradient-to-b from-white/[0.02] to-transparent hover:border-white/20"
+                }`}
+              >
+                {service.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="inline-block rounded-full bg-emerald-600 px-4 py-1 text-[11px] font-semibold text-white uppercase tracking-wider">
+                      Más popular
+                    </span>
+                  </div>
+                )}
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {ADVANCED.map((s) => (
-            <ServiceCard key={s.name} service={s} />
-          ))}
+                <div className="mb-6">
+                  <div className={`inline-flex rounded-xl p-3 ${
+                    service.popular ? "bg-emerald-500/20" : "bg-white/5"
+                  }`}>
+                    <Icon className={`h-6 w-6 ${
+                      service.popular ? "text-emerald-400" : "text-[#9AA6B2]"
+                    }`} />
+                  </div>
+                </div>
+
+                <h3 className="text-[24px] font-bold text-white mb-3">
+                  {service.name}
+                </h3>
+                
+                <p className="text-[14px] text-[#9AA6B2] leading-relaxed mb-8 min-h-[40px]">
+                  {service.description}
+                </p>
+
+                <div className="mb-8">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[11px] text-[#9AA6B2]">Desde</span>
+                    <span className="text-[48px] font-bold text-white leading-none">
+                      ${service.price}
+                    </span>
+                    <span className="text-[14px] text-[#9AA6B2]">/{service.period}</span>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => scrollTo(service.cta === "Agendar diagnóstico" ? "diagnostico" : "contacto")}
+                  className={`w-full py-3 h-auto rounded-xl text-[14px] font-semibold ${
+                    service.popular
+                      ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20"
+                      : "bg-white/5 hover:bg-white/10 text-white border border-white/10"
+                  }`}
+                >
+                  {service.cta}
+                </Button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

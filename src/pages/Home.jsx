@@ -1,12 +1,13 @@
 import React from 'react';
 import Navigation from '../components/landing/Navigation';
 import Hero from '../components/landing/Hero';
-import Stats from '../components/landing/Stats';
-import Systems from '../components/landing/Systems';
+import TrustStrip from '../components/landing/TrustStrip';
+import ProductOverview from '../components/landing/ProductOverview';
 import Pricing from '../components/landing/Pricing';
+import BenefitsGrid from '../components/landing/BenefitsGrid';
 import Diagnosis from '../components/landing/Diagnosis';
-import CTA from '../components/landing/CTA';
 import Contact from '../components/landing/Contact';
+import FinalCTA from '../components/landing/FinalCTA';
 import Footer from '../components/landing/Footer';
 
 export default function Home() {
@@ -15,11 +16,13 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
-        <Systems />
+        <TrustStrip />
+        <ProductOverview />
         <Pricing />
+        <BenefitsGrid />
         <Diagnosis />
         <Contact />
-        <CTA />
+        <FinalCTA />
       </main>
       <Footer />
     </div>
