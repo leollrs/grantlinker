@@ -12,40 +12,40 @@ const scrollTo = (id) => {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-48 pb-32">
+    <section className="relative overflow-hidden pt-24 sm:pt-32 lg:pt-48 pb-16 sm:pb-24 lg:pb-32">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-emerald-500/[0.03] blur-[160px]" />
       </div>
 
-      <div className="relative mx-auto max-w-[1400px] px-8">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="max-w-[600px]">
-            <h1 className="text-[64px] font-bold text-white leading-[1.05] tracking-tight mb-8">
+            <h1 className="text-[36px] sm:text-[48px] lg:text-[64px] font-bold text-white leading-[1.05] tracking-tight mb-6 sm:mb-8">
               Automatiza tu operación completa con IA
             </h1>
             
-            <p className="text-[22px] text-[#9AA6B2] leading-[1.5] mb-12">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-[#9AA6B2] leading-[1.5] mb-8 sm:mb-12">
               Llamadas, citas, clientes y procesos internos funcionando 24/7 en un solo sistema.
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button
                 onClick={() => scrollTo("contacto")}
-                className="px-10 py-6 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-[16px] font-semibold rounded-xl"
+                className="px-8 sm:px-10 py-5 sm:py-6 h-auto bg-emerald-600 hover:bg-emerald-500 text-white text-[15px] sm:text-[16px] font-semibold rounded-xl"
               >
                 Agendar llamada
               </Button>
               <Button
                 variant="outline"
                 onClick={() => scrollTo("producto")}
-                className="px-10 py-6 h-auto rounded-xl border-white/10 text-white hover:text-white hover:border-white/20 bg-transparent hover:bg-white/5 text-[16px] font-semibold"
+                className="px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-xl border-white/10 text-white hover:text-white hover:border-white/20 bg-transparent hover:bg-white/5 text-[15px] sm:text-[16px] font-semibold"
               >
                 Ver cómo funciona
               </Button>
             </div>
           </div>
 
-          <div>
+          <div className="mt-8 lg:mt-0">
             <WorkflowVisualization />
           </div>
         </div>
