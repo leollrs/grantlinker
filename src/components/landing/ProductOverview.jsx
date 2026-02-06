@@ -1,5 +1,6 @@
 import React from "react";
 import { Check, Box, Clock, Bell } from "lucide-react";
+import SystemFlowDiagram from "./SystemFlowDiagram";
 
 export default function ProductOverview() {
   const benefits = [
@@ -40,32 +41,7 @@ export default function ProductOverview() {
           </div>
 
           <div className="relative mt-8 lg:mt-0">
-            <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#111827] to-[#0F172A] p-6 sm:p-10 lg:p-12">
-              <div className="space-y-4 sm:space-y-5">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-center gap-3 sm:gap-4">
-                    <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                      <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-500" />
-                    </div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-2.5 sm:h-3 rounded bg-white/10" style={{ width: `${90 - i * 10}%` }} />
-                      <div className="h-2 rounded bg-white/5" style={{ width: `${70 - i * 10}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/5">
-                <p className="text-[11px] sm:text-[13px] text-[#9AA6B2] uppercase tracking-wider mb-2">
-                  Flujo automatizado
-                </p>
-                <p className="text-[14px] sm:text-[15px] text-white font-medium">
-                  Sin intervención manual
-                </p>
-              </div>
-            </div>
-
-            <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 blur-3xl" />
+            <SystemFlowDiagram />
           </div>
         </div>
       </div>
