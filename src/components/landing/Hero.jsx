@@ -12,18 +12,24 @@ const scrollTo = (id) => {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden min-h-screen flex items-center pt-20 sm:pt-32 lg:pt-48 pb-16 sm:pb-24 lg:pb-32">
+    // ✅ Use 100svh so mobile browser bars don't mess the height
+    // ✅ No big top/bottom padding on mobile so it fills the screen
+    <section className="relative overflow-hidden min-h-[100svh] flex items-center pt-16 sm:pt-28 lg:pt-48 pb-0 sm:pb-20 lg:pb-32">
+      {/* background glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-emerald-500/[0.03] blur-[160px]" />
       </div>
 
-      <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      {/* ✅ Make the inner container fill the viewport height on mobile */}
+      <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8 min-h-[100svh] flex items-center">
+        {/* ✅ On mobile: 2 rows (text + viz) but we cap the viz height so text stays above the fold */}
+        <div className="grid w-full grid-rows-[auto_1fr] lg:grid-rows-none lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          {/* TEXT */}
           <div className="max-w-[600px]">
             <h1 className="text-[36px] sm:text-[48px] lg:text-[64px] font-bold text-white leading-[1.05] tracking-tight mb-6 sm:mb-8">
               Automatiza tu operación completa con IA
             </h1>
-            
+
             <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-[#9AA6B2] leading-[1.5] mb-8 sm:mb-12">
               Llamadas, citas, clientes y procesos internos funcionando 24/7 en un solo sistema.
             </p>
@@ -35,6 +41,7 @@ export default function Hero() {
               >
                 Agendar llamada
               </Button>
+
               <Button
                 variant="outline"
                 onClick={() => scrollTo("producto")}
@@ -45,8 +52,12 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mt-8 lg:mt-0">
-            <WorkflowVisualization />
+          {/* VISUAL */}
+          <div className="mt-8 lg:mt-0 w-full">
+            {/* ✅ Key change: constrain the visualization height on mobile so the hero stays 1-screen */}
+            <div className="mx-auto w-full max-w-[520px] lg:max-w-none max-h-[36vh] sm:max-h-[42vh] lg:max-h-none overflow-hidden">
+              <WorkflowVisualization />
+            </div>
           </div>
         </div>
       </div>
