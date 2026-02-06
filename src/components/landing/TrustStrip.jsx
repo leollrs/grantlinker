@@ -1,20 +1,22 @@
 import React from "react";
 
 export default function TrustStrip() {
+  const sectors = ["Clínicas", "ONGs", "Municipios", "Empresas", "Educación"];
+
   return (
-    <section className="py-16 border-t border-white/5">
-      <div className="mx-auto max-w-[1280px] px-6">
-        <p className="text-center text-[12px] text-[#9AA6B2] uppercase tracking-wider mb-10">
+    <section className="py-20 border-t border-white/5">
+      <div className="mx-auto max-w-[1400px] px-8">
+        <p className="text-center text-[13px] text-[#9AA6B2]/60 uppercase tracking-wider mb-12">
           Organizaciones que ya automatizan con GrantLinker
         </p>
         
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-          {["Clínicas", "ONGs", "Municipios", "Empresas", "Educación"].map((name) => (
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          {sectors.map((name) => (
             <div
               key={name}
-              className="flex items-center justify-center rounded-xl border border-white/5 bg-white/[0.02] px-8 py-4 backdrop-blur"
+              className="rounded-lg border border-white/5 bg-white/[0.01] px-8 py-4"
             >
-              <span className="text-[14px] font-medium text-[#9AA6B2]">{name}</span>
+              <span className="text-[15px] font-medium text-[#9AA6B2]">{name}</span>
             </div>
           ))}
         </div>

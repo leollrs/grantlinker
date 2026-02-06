@@ -3,7 +3,8 @@ import Navigation from '../components/landing/Navigation';
 import Hero from '../components/landing/Hero';
 import TrustStrip from '../components/landing/TrustStrip';
 import ProductOverview from '../components/landing/ProductOverview';
-import Pricing from '../components/landing/Pricing';
+import ModularServices from '../components/landing/ModularServices';
+import EnterpriseImplementations from '../components/landing/EnterpriseImplementations';
 import BenefitsGrid from '../components/landing/BenefitsGrid';
 import Diagnosis from '../components/landing/Diagnosis';
 import Contact from '../components/landing/Contact';
@@ -18,7 +19,8 @@ export default function Home() {
         <Hero />
         <TrustStrip />
         <ProductOverview />
-        <Pricing />
+        <ModularServices />
+        <EnterpriseImplementations />
         <BenefitsGrid />
         <Diagnosis />
         <Contact />
