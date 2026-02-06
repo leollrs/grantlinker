@@ -39,7 +39,7 @@ const SERVICES = [
 
 export default function ModularServices() {
   return (
-    <section className="py-16 sm:py-24 lg:py-32 border-t border-white/5">
+    <section id="planes" className="py-16 sm:py-24 lg:py-32 border-t border-white/5">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="mb-12 sm:mb-16 lg:mb-20">
           <h2 className="text-[32px] sm:text-[44px] lg:text-[52px] font-bold text-white leading-[1.1] tracking-tight">
