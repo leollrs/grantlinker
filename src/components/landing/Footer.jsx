@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 
 export default function Footer() {
   const scrollTo = (id) => {
@@ -51,6 +53,11 @@ export default function Footer() {
           <p className="text-[12px] text-[#9AA6B2]/30">
             &copy; {new Date().getFullYear()} GrantLinker. Todos los derechos reservados.
           </p>
+          <div className="mt-3">
+            <Link to={createPageUrl('Privacy')} className="text-[12px] text-[#9AA6B2]/60 hover:text-emerald-500 transition-colors">
+              Privacy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
